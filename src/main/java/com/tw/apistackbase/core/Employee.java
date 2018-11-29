@@ -1,8 +1,7 @@
 package com.tw.apistackbase.core;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
 
 @Entity
 public class Employee {
@@ -13,7 +12,28 @@ public class Employee {
     private String name;
     private int age;
 
+    @JsonIgnore
+    @ManyToOne (cascade=CascadeType.ALL)
+    @JoinColumn(name = "company_id")
+    private Company company;
+
     public Employee() {}
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
 
     public Employee(String name, int age) {
         this.name = name;

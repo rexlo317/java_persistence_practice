@@ -26,6 +26,8 @@ public class CompanyResource {
 
     @PostMapping(produces = {"application/json"})
     public void add(@RequestBody Company company) {
+        company.getEmployees().stream().forEach(employee ->
+                employee.setCompany(company));
         companyRepository.save(company);
     }
 }
